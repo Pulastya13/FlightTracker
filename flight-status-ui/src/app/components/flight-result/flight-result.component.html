@@ -1,0 +1,67 @@
+<div class="result-card" *ngIf="result">
+  <div class="result-header">
+    <div class="flight-info">
+      <h2>{{ result.flightNumber }}</h2>
+      <span class="date">{{ result.date }}</span>
+    </div>
+    <div class="status-badge" [ngClass]="statusClass">
+      {{ statusLabel }}
+    </div>
+  </div>
+
+  <div *ngIf="result.message" class="message">
+    {{ result.message }}
+  </div>
+
+  <div class="result-details" *ngIf="result.status !== 'Unknown'">
+    <div class="detail-row">
+      <div class="detail-item">
+        <span class="label">Scheduled Departure</span>
+        <span class="value">{{ formatDateTime(result.scheduledDeparture) }}</span>
+      </div>
+      <div class="detail-item" *ngIf="result.actualDeparture">
+        <span class="label">Actual Departure</span>
+        <span class="value">{{ formatDateTime(result.actualDeparture) }}</span>
+      </div>
+    </div>
+
+    <div class="detail-row">
+      <div class="detail-item">
+        <span class="label">Scheduled Arrival</span>
+        <span class="value">{{ formatDateTime(result.scheduledArrival) }}</span>
+      </div>
+      <div class="detail-item" *ngIf="result.actualArrival">
+        <span class="label">Actual Arrival</span>
+        <span class="value">{{ formatDateTime(result.actualArrival) }}</span>
+      </div>
+    </div>
+
+    <!-- AeroTrack-only fields -->
+    <div class="aerotrack-details" *ngIf="hasAeroTrackDetails">
+      <h3>Additional Details</h3>
+      <div class="detail-row">
+        <div class="detail-item" *ngIf="result.terminal">
+          <span class="label">Terminal</span>
+          <span class="value highlight">{{ result.terminal }}</span>
+        </div>
+        <div class="detail-item" *ngIf="result.gate">
+          <span class="label">Gate</span>
+          <span class="value highlight">{{ result.gate }}</span>
+        </div>
+      </div>
+      <div class="detail-row" *ngIf="result.delayReason">
+        <div class="detail-item full-width">
+          <span class="label">Delay Reason</span>
+          <span class="value reason">{{ result.delayReason }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="provider-info">
+      <span>Source: {{ result.providerSource }}</span>
+      <span *ngIf="result.lastUpdatedUtc">
+        | Last Updated: {{ formatDateTime(result.lastUpdatedUtc) }}
+      </span>
+    </div>
+  </div>
+</div>
