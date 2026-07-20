@@ -24,6 +24,7 @@ export class FlightSearchComponent {
   search(): void {
     if (!this.flightNumber.trim() || !this.date) {
       this.error = 'Please enter both flight number and date.';
+      this.result = null;
       return;
     }
 
