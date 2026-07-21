@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 
 namespace FlightStatus.Api.Helpers;
@@ -11,7 +12,7 @@ public static partial class FlightNumberValidator
     [GeneratedRegex(@"^[A-Z]{2}\d{1,4}$", RegexOptions.Compiled)]
     private static partial Regex FlightNumberPattern();
 
-    public static bool IsValid(string flightNumber)
+    public static bool IsValid([NotNullWhen(true)]string? flightNumber)
     {
         return !string.IsNullOrWhiteSpace(flightNumber) && FlightNumberPattern().IsMatch(flightNumber.Trim().ToUpperInvariant());
     }

@@ -59,19 +59,15 @@ if (app.Environment.IsDevelopment())
 // GET /flights/status?flightNumber={code}&date={yyyy-MM-dd}
 app.MapGet("/flights/status", async (string? flightNumber, string? date, IFlightStatusService flightStatusService, ILogger<Program> logger) =>
 {
-    if (string.IsNullOrWhiteSpace(flightNumber) || string.IsNullOrWhiteSpace(date))
-    {
-        return Results.BadRequest(new { error = "flightNumber and date are required query parameters" });
-    }
 
     if (!FlightNumberValidator.IsValid(flightNumber))
     {
-        return Results.BadRequest(new { error = "flightNumber must be 2 letters followed by 1-4 digits (e.g., SK1234)" });
+        return Results.BadRequest(new { error = "FlightNumber is required and must be 2 letters followed by 1-4 digits (e.g., SK1234)" });
     }
 
     if (!DateOnly.TryParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedDate))
     {
-        return Results.BadRequest(new { error = "date must be in yyyy-MM-dd format" });
+        return Results.BadRequest(new { error = "Date is required and must be in yyyy-MM-dd format" });
     }
 
     logger.LogInformation("API request: flight={FlightNumber}, date={Date}", flightNumber, date);

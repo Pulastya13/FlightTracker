@@ -36,7 +36,7 @@ public class FlightNumberValidatorTests
     [Fact]
     public void IsValid_Null_ReturnsFalse()
     {
-        Assert.False(FlightNumberValidator.IsValid(null!));
+        Assert.False(FlightNumberValidator.IsValid(null));
     }
 
     [Fact]
